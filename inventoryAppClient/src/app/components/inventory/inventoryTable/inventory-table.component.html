@@ -1,0 +1,48 @@
+<div class="filter-container">
+    <mat-form-field appearance="fill">
+        <mat-label>מחסן</mat-label>
+        <input matInput [(ngModel)]="filterWarehouse" placeholder="הזן מחסן">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>תאריך</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="filterDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+</div>
+
+<table mat-table [dataSource]="filteredProducts()" class="mat-elevation-z8 custom-table">
+    <ng-container matColumnDef="sku">
+        <th mat-header-cell *matHeaderCellDef> מק"ט </th>
+        <td mat-cell *matCellDef="let element"> {{element.sku}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> תיאור </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef> כמות </th>
+        <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="units">
+        <th mat-header-cell *matHeaderCellDef> יח </th>
+        <td mat-cell *matCellDef="let element"> {{ element.units }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="warehouse">
+        <th mat-header-cell *matHeaderCellDef> מחסן </th>
+        <td mat-cell *matCellDef="let element"> {{element.warehouse}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> תאריך </th>
+        <td mat-cell *matCellDef="let element"> {{element.date | date}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['sku', 'description', 'units', 'quantity', 'warehouse', 'date']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['sku', 'description', 'units', 'quantity', 'warehouse', 'date'];"></tr>
+</table>
