@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/productService';
+import { Product } from '../../models/Product';
+import { InventoryTableComponent } from "./inventoryTable/inventory-table.component";
+import { InventoryHistogramComponent } from "./inventoryHistogram/inventory-histogram.component";
 
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,9 +13,8 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { Product } from '../../models/Product';
-import { InventoryTableComponent } from "./inventoryTable/inventory-table.component";
-import { InventoryHistogramComponent } from "./inventoryHistogram/inventory-histogram.component";
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 @Component({
   selector: 'app-inventory',
@@ -27,6 +29,7 @@ import { InventoryHistogramComponent } from "./inventoryHistogram/inventory-hist
     MatTableModule,
     MatButtonModule,
     MatCardModule,
+    MatCheckboxModule,
     InventoryTableComponent,
     InventoryHistogramComponent
 ],
@@ -37,6 +40,7 @@ import { InventoryHistogramComponent } from "./inventoryHistogram/inventory-hist
 export class InventoryComponent implements OnInit {
   products: Product[] = [];
   view: 'table' | 'histogram' = 'table';
+  showBoth: boolean = false;
 
   constructor(private productService: ProductService) { }
 
@@ -48,5 +52,6 @@ export class InventoryComponent implements OnInit {
 
   toggleView() {
     this.view = this.view === 'table' ? 'histogram' : 'table';
+    this.showBoth = false;
   }
 }

@@ -1,14 +1,15 @@
 <h1 class="title">מלאי מחסנים</h1>
-
 <mat-card class="inventory-card">
     <mat-card-header>
-        <button mat-raised-button color="primary" (click)="toggleView()">
+        <mat-checkbox [(ngModel)]="showBoth">הצג טבלה והיסטוגרמה יחד</mat-checkbox>
+        <button mat-raised-button color="primary" (click)="toggleView()" *ngIf="!showBoth">
             הצג {{ view === 'table' ? 'Histogram' : 'Table' }}
         </button>
     </mat-card-header>
-
+<br/>
     <mat-card-content dir="rtl">
-        <app-inventory-table *ngIf="view === 'table'" [products]="products"></app-inventory-table>
-        <app-inventory-histogram *ngIf="view === 'histogram'" [products]="products"></app-inventory-histogram>
+        <app-inventory-table *ngIf="showBoth || view === 'table'" [products]="products"></app-inventory-table>
+        <app-inventory-histogram *ngIf="showBoth || view === 'histogram'"
+            [products]="products"></app-inventory-histogram>
     </mat-card-content>
 </mat-card>
